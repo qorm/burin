@@ -511,6 +511,36 @@ burin/
 
 如有问题或建议，请通过 Issue 与我们联系。
 
+## 依赖库
+
+Burin 项目基于以下优秀的开源库构建：
+
+### 核心依赖
+
+| 库名 | 版本 | 用途 |
+|------|------|------|
+| [BadgerDB](https://github.com/dgraph-io/badger) | v4.8.0 | 高性能 KV 存储引擎，LSM 树结构 |
+| [HashiCorp Raft](https://github.com/hashicorp/raft) | v1.5.0 | 分布式共识算法实现 |
+| [raft-boltdb](https://github.com/hashicorp/raft-boltdb) | latest | Raft 日志存储后端 |
+| [Logrus](https://github.com/sirupsen/logrus) | v1.9.3 | 结构化日志库 |
+
+### 工具库
+
+| 库名 | 版本 | 用途 |
+|------|------|------|
+| [Sonic](https://github.com/bytedance/sonic) | v1.14.2 | 高性能 JSON 序列化/反序列化 |
+| [Viper](https://github.com/spf13/viper) | v1.21.0 | 配置文件管理 |
+| [Cobra](https://github.com/spf13/cobra) | v1.9.1 | CLI 命令行工具框架 |
+| [Readline](https://github.com/chzyer/readline) | v1.5.1 | 交互式命令行支持 |
+| [Prometheus Client](https://github.com/prometheus/client_golang) | v1.4.0 | 监控指标导出 |
+
+### 特别感谢
+
+- **BadgerDB**: 提供了高性能、低延迟的 LSM 树存储引擎
+- **HashiCorp Raft**: 成熟稳定的 Raft 共识算法实现
+- **Sonic**: 字节跳动开源的超高性能 JSON 库
+- **Viper & Cobra**: 让配置管理和 CLI 开发变得简单
+
 ---
 
 <p align="center">
