@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 )
 
 // test20_UserCreationAndManagement 测试用户创建和管理

@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"

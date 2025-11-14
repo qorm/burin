@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"burin/cProtocol"
+	"github.com/qorm/burin/cProtocol"
 
 	"github.com/bytedance/sonic"
 )

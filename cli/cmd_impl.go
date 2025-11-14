@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"burin/client"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/client"
+	"github.com/qorm/burin/client/interfaces"
 
 	"github.com/spf13/cobra"
 )

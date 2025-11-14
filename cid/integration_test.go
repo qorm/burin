@@ -3,7 +3,7 @@ package cid_test
 import (
 	"testing"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 )
 
 // TestCIDIntegration 测试CID在整个项目中的集成

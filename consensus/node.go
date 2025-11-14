@@ -1,7 +1,7 @@
 package consensus
 
 import (
-	"burin/cProtocol"
+	"github.com/qorm/burin/cProtocol"
 	"context"
 	"fmt"
 	"io"

@@ -8,7 +8,7 @@ import (
 
 	"github.com/bytedance/sonic"
 
-	"burin/cProtocol"
+	"github.com/qorm/burin/cProtocol"
 )
 
 // handleHealth 处理健康检查命令

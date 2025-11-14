@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"burin/client"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/client"
+	"github.com/qorm/burin/client/interfaces"
 )
 
 // main 演示 GEO 客户端的基本用法

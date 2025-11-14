@@ -8,7 +8,7 @@ import (
 
 	"github.com/bytedance/sonic"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 
 	"github.com/dgraph-io/badger/v4"
 	"github.com/prometheus/client_golang/prometheus"

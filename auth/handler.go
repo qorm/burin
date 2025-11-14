@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"burin/cProtocol"
+	"github.com/qorm/burin/cProtocol"
 
 	"github.com/sirupsen/logrus"
 )

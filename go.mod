@@ -1,4 +1,4 @@
-module burin
+module github.com/qorm/burin
 
 go 1.24.0
 

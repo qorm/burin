@@ -7,9 +7,9 @@ import (
 
 	"github.com/bytedance/sonic"
 
-	"burin/cProtocol"
-	"burin/store"
-	"burin/transaction"
+	"github.com/qorm/burin/cProtocol"
+	"github.com/qorm/burin/store"
+	"github.com/qorm/burin/transaction"
 )
 
 // handleReplication 处理来自其他节点的复制请求

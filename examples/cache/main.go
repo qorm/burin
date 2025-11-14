@@ -1,7 +1,7 @@
 package main
 
 import (
-	"burin/client"
+	"github.com/qorm/burin/client"
 	"fmt"
 	"log"
 	"time"

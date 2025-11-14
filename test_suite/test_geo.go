@@ -5,8 +5,8 @@ import (
 	"math"
 	"time"
 
-	"burin/cid"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/cid"
+	"github.com/qorm/burin/client/interfaces"
 )
 
 const geoDBName = "geo_test" // 全局GEO数据库名称

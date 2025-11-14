@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 )
 
 func test1_BasicCacheOperations() {

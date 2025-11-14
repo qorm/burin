@@ -7,7 +7,7 @@ import (
 
 	"github.com/bytedance/sonic"
 
-	"burin/cProtocol"
+	"github.com/qorm/burin/cProtocol"
 )
 
 // ============================================

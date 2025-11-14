@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"burin/client"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/client"
+	"github.com/qorm/burin/client/interfaces"
 
 	"github.com/chzyer/readline"
 	"github.com/spf13/cobra"

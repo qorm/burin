@@ -10,8 +10,8 @@ import (
 	"syscall"
 	"time"
 
-	"burin/business"
-	"burin/config"
+	"github.com/qorm/burin/business"
+	"github.com/qorm/burin/config"
 
 	"github.com/sirupsen/logrus"
 )

@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"burin/client"
+	"github.com/qorm/burin/client"
 
 	"github.com/sirupsen/logrus"
 )

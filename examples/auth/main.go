@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 
-	"burin/auth"
-	"burin/cProtocol"
+	"github.com/qorm/burin/auth"
+	"github.com/qorm/burin/cProtocol"
 
 	"github.com/sirupsen/logrus"
 )

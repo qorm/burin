@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"burin/cid"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/cid"
+	"github.com/qorm/burin/client/interfaces"
 )
 
 // test12_BasicTransactions 基本事务测试

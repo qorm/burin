@@ -3,7 +3,7 @@ package main
 import (
 "time"
 
-"burin/cid"
+"github.com/qorm/burin/cid"
 )
 func test10_ErrorHandling() {
 	printTestHeader("测试10: 错误处理")

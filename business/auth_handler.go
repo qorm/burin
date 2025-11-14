@@ -8,7 +8,7 @@ import (
 
 	"github.com/bytedance/sonic"
 
-	"burin/cProtocol"
+	"github.com/qorm/burin/cProtocol"
 )
 
 // handleAuthCommands 处理认证相关命令

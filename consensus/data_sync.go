@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 
 	"github.com/bytedance/sonic"
 

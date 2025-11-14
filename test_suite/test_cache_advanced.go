@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 )
 
 func test6_ConcurrentOperations() {

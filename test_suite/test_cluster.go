@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 )
 
 func test9_ClusterDataSync() {

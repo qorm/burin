@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"burin/cProtocol"
-	"burin/client/interfaces"
-	"burin/client/internal/geo"
-	"burin/client/internal/store"
-	"burin/client/internal/transaction"
+	"github.com/qorm/burin/cProtocol"
+	"github.com/qorm/burin/client/interfaces"
+	"github.com/qorm/burin/client/internal/geo"
+	"github.com/qorm/burin/client/internal/store"
+	"github.com/qorm/burin/client/internal/transaction"
 
 	"github.com/bytedance/sonic"
 	"github.com/sirupsen/logrus"

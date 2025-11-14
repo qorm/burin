@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"burin/client"
+	"github.com/qorm/burin/client"
 )
 
 func main() {

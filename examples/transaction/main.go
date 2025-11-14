@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"burin/client"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/client"
+	"github.com/qorm/burin/client/interfaces"
 )
 
 // RunTransactionDemo 运行事务演示

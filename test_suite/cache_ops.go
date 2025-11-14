@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"burin/client"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/client"
+	"github.com/qorm/burin/client/interfaces"
 )
 
 // getClientForOp 获取用于操作的客户端（如果连接池可用则从池中获取，否则使用全局客户端）

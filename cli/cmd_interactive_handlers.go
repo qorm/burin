@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"burin/cProtocol"
-	"burin/client"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/cProtocol"
+	"github.com/qorm/burin/client"
+	"github.com/qorm/burin/client/interfaces"
 
 	"github.com/bytedance/sonic"
 )

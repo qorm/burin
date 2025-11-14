@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"burin/cProtocol"
-	"burin/client/interfaces"
+	"github.com/qorm/burin/cProtocol"
+	"github.com/qorm/burin/client/interfaces"
 
 	"github.com/bytedance/sonic"
 	"github.com/sirupsen/logrus"

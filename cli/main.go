@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"burin/client"
+	"github.com/qorm/burin/client"
 
 	"github.com/spf13/cobra"
 )

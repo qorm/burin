@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"burin/cid"
+	"github.com/qorm/burin/cid"
 )
 
 // testDB_Operations 数据库操作测试

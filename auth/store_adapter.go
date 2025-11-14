@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"burin/consensus"
-	"burin/store"
+	"github.com/qorm/burin/consensus"
+	"github.com/qorm/burin/store"
 
 	"github.com/bytedance/sonic"
 	"github.com/sirupsen/logrus"

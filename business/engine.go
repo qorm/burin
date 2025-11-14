@@ -9,12 +9,12 @@ import (
 
 	"github.com/bytedance/sonic"
 
-	"burin/auth"
-	"burin/cProtocol"
-	"burin/cid"
-	"burin/consensus"
-	"burin/store"
-	"burin/transaction"
+	"github.com/qorm/burin/auth"
+	"github.com/qorm/burin/cProtocol"
+	"github.com/qorm/burin/cid"
+	"github.com/qorm/burin/consensus"
+	"github.com/qorm/burin/store"
+	"github.com/qorm/burin/transaction"
 
 	"github.com/sirupsen/logrus"
 )
