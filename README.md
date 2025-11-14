@@ -98,8 +98,8 @@ cd burin
 # 连接到服务器
 connect 127.0.0.1:8099
 
-# 登录（默认用户名：admin，密码：burin2025）
-login admin burin2025
+# 登录（默认用户名：burin，密码：burin@secret）
+login burin burin@secret
 
 # 基本操作
 set mykey "Hello Burin"
@@ -165,8 +165,8 @@ func main() {
     // 创建配置
     config := client.NewDefaultConfig()
     config.Connection.Endpoints = []string{"localhost:8099"}
-    config.Auth.Username = "admin"
-    config.Auth.Password = "burin2025"
+    config.Auth.Username = "burin"
+    config.Auth.Password = "burin@secret"
     
     // 创建客户端
     burinClient, err := client.NewClient(config)
@@ -347,8 +347,8 @@ config.Pool.MinSize = 10
 config.Pool.IdleTimeout = 5 * time.Minute
 
 // 认证配置
-config.Auth.Username = "admin"
-config.Auth.Password = "burin2025"
+config.Auth.Username = "burin"
+config.Auth.Password = "burin@secret"
 ```
 
 ## 构建
@@ -502,7 +502,6 @@ burin/
 
 ## 相关文档
 
-- [Docker 部署指南](./docker/README.md)
 - [客户端使用指南](./client/README.md)
 - [连接池文档](./client/POOL.md)
 - [事务文档](./client/TRANSACTION.md)
