@@ -48,3 +48,6 @@ temp/
 # Test coverage
 coverage.txt
 coverage.html
+burin-cli-history.txt
+*.pid
+.gitignore

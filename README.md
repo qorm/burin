@@ -109,6 +109,10 @@ get mykey
 del mykey
 ```
 
+**CLI Interface Screenshot:**
+
+![Burin CLI Interface](cli-screenshot.png)
+
 ## Architecture
 
 ### System Architecture

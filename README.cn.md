@@ -109,6 +109,10 @@ get mykey
 del mykey
 ```
 
+**CLI 客户端界面截图：**
+
+![Burin CLI 客户端界面](cli-screenshot.png)
+
 ## 架构
 
 ### 系统架构
