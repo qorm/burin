@@ -248,9 +248,6 @@ func printAvailableTests() {
 	fmt.Println("  ./test_suite -tests testdb                              # 运行数据库管理测试")
 	fmt.Println("  ./test_suite -tests testgeo                             # 运行GEO测试")
 	fmt.Println()
-	fmt.Println("更多信息:")
-	fmt.Println("  性能指南: cat PERFORMANCE_GUIDE.md")
-	fmt.Println("  演示脚本: ./run_performance_demo.sh")
 }
 
 func runSelectedTests() {

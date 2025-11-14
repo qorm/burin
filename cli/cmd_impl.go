@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/qorm/burin/cli/i18n"
 	"github.com/qorm/burin/client"
 	"github.com/qorm/burin/client/interfaces"
 
@@ -15,7 +16,7 @@ import (
 // Version command
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "显示版本信息",
+	Short: "Show version information",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Burin CLI v1.0.0")
 	},
@@ -24,7 +25,7 @@ var versionCmd = &cobra.Command{
 // Ping command
 var pingCmd = &cobra.Command{
 	Use:   "ping",
-	Short: "测试连接",
+	Short: "Test connection",
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
 		start := time.Now()
@@ -33,18 +34,18 @@ var pingCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ PING 失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrPingFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
-		fmt.Printf("✅ PONG (耗时: %v)\n", elapsed)
+		fmt.Printf("✅ PONG %s\n", i18n.T(i18n.MsgTime, elapsed))
 	},
 }
 
 // Get command
 var getCmd = &cobra.Command{
 	Use:   "get <key>",
-	Short: "获取键的值",
+	Short: "Get value by key",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		key := args[0]
@@ -54,12 +55,12 @@ var getCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 获取失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrGetFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
 		if !resp.Found {
-			fmt.Printf("(nil) (耗时: %v)\n", elapsed)
+			fmt.Printf("%s %s\n", i18n.T(i18n.MsgNotFound), i18n.T(i18n.MsgTime, elapsed))
 			return
 		}
 
@@ -67,7 +68,7 @@ var getCmd = &cobra.Command{
 		if resp.TTL > 0 {
 			fmt.Printf("TTL: %v\n", resp.TTL)
 		}
-		fmt.Printf("(耗时: %v)\n", elapsed)
+		fmt.Printf("%s\n", i18n.T(i18n.MsgTime, elapsed))
 	},
 }
 
@@ -76,7 +77,7 @@ var (
 	setTTL time.Duration
 	setCmd = &cobra.Command{
 		Use:   "set <key> <value>",
-		Short: "设置键值对",
+		Short: "Set key-value pair",
 		Args:  cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
 			key := args[0]
@@ -92,23 +93,23 @@ var (
 			elapsed := time.Since(start)
 
 			if err != nil {
-				fmt.Printf("❌ 设置失败: %v (耗时: %v)\n", err, elapsed)
+				fmt.Printf(i18n.T(i18n.ErrSetFailed, err, elapsed) + "\n")
 				os.Exit(1)
 			}
 
-			fmt.Printf("✅ OK (耗时: %v)\n", elapsed)
+			fmt.Printf("%s %s\n", i18n.T(i18n.MsgOK), i18n.T(i18n.MsgTime, elapsed))
 		},
 	}
 )
 
 func init() {
-	setCmd.Flags().DurationVar(&setTTL, "ttl", 0, "过期时间 (例如: 10s, 5m, 1h)")
+	setCmd.Flags().DurationVar(&setTTL, "ttl", 0, "TTL duration")
 }
 
 // Delete command
 var delCmd = &cobra.Command{
 	Use:   "del <key>",
-	Short: "删除键",
+	Short: "Delete key",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		key := args[0]
@@ -118,18 +119,18 @@ var delCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 删除失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrDelFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
-		fmt.Printf("✅ OK (耗时: %v)\n", elapsed)
+		fmt.Printf("%s %s\n", i18n.T(i18n.MsgOK), i18n.T(i18n.MsgTime, elapsed))
 	},
 }
 
 // Exists command
 var existsCmd = &cobra.Command{
 	Use:   "exists <key>",
-	Short: "检查键是否存在",
+	Short: "Check if key exists",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		key := args[0]
@@ -139,14 +140,14 @@ var existsCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 检查失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrExistsFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
 		if exists {
-			fmt.Printf("✅ 存在 (耗时: %v)\n", elapsed)
+			fmt.Printf("%s %s\n", i18n.T(i18n.MsgExists), i18n.T(i18n.MsgTime, elapsed))
 		} else {
-			fmt.Printf("❌ 不存在 (耗时: %v)\n", elapsed)
+			fmt.Printf("%s %s\n", i18n.T(i18n.MsgNotExists), i18n.T(i18n.MsgTime, elapsed))
 		}
 	},
 }
@@ -158,7 +159,7 @@ var (
 	listOffset int
 	listCmd    = &cobra.Command{
 		Use:   "list",
-		Short: "列出键",
+		Short: "List keys",
 		Run: func(cmd *cobra.Command, args []string) {
 			start := time.Now()
 
@@ -177,27 +178,27 @@ var (
 			elapsed := time.Since(start)
 
 			if err != nil {
-				fmt.Printf("❌ 列出键失败: %v (耗时: %v)\n", err, elapsed)
+				fmt.Printf(i18n.T(i18n.ErrListFailed, err, elapsed) + "\n")
 				os.Exit(1)
 			}
 
 			if len(keys) == 0 {
-				fmt.Printf("(空) (耗时: %v)\n", elapsed)
+				fmt.Printf("%s %s\n", i18n.T(i18n.MsgEmpty), i18n.T(i18n.MsgTime, elapsed))
 				return
 			}
 
 			for i, key := range keys {
 				fmt.Printf("%d) %s\n", i+1, key)
 			}
-			fmt.Printf("\n总计: %d 个键 (耗时: %v)\n", total, elapsed)
+			fmt.Printf("\n%s %s\n", i18n.T(i18n.MsgTotal, total), i18n.T(i18n.MsgTime, elapsed))
 		},
 	}
 )
 
 func init() {
-	listCmd.Flags().StringVarP(&listPrefix, "prefix", "p", "", "键前缀")
-	listCmd.Flags().IntVarP(&listLimit, "limit", "l", 100, "最大返回数量")
-	listCmd.Flags().IntVar(&listOffset, "offset", 0, "偏移量")
+	listCmd.Flags().StringVarP(&listPrefix, "prefix", "p", "", "Key prefix")
+	listCmd.Flags().IntVarP(&listLimit, "limit", "l", 100, "Max results")
+	listCmd.Flags().IntVar(&listOffset, "offset", 0, "Offset")
 }
 
 // Count command
@@ -205,7 +206,7 @@ var (
 	countPrefix string
 	countCmd    = &cobra.Command{
 		Use:   "count",
-		Short: "统计键数量",
+		Short: "Count keys",
 		Run: func(cmd *cobra.Command, args []string) {
 			start := time.Now()
 
@@ -218,28 +219,28 @@ var (
 			elapsed := time.Since(start)
 
 			if err != nil {
-				fmt.Printf("❌ 统计失败: %v (耗时: %v)\n", err, elapsed)
+				fmt.Printf(i18n.T(i18n.ErrCountFailed, err, elapsed) + "\n")
 				os.Exit(1)
 			}
 
-			fmt.Printf("键数量: %d (耗时: %v)\n", count, elapsed)
+			fmt.Printf("%s %s\n", i18n.T(i18n.MsgTotal, count), i18n.T(i18n.MsgTime, elapsed))
 		},
 	}
 )
 
 func init() {
-	countCmd.Flags().StringVarP(&countPrefix, "prefix", "p", "", "键前缀")
+	countCmd.Flags().StringVarP(&countPrefix, "prefix", "p", "", "Key prefix")
 }
 
 // Geo commands
 var geoCmd = &cobra.Command{
 	Use:   "geo",
-	Short: "地理位置操作",
+	Short: "Geographic operations",
 }
 
 var geoAddCmd = &cobra.Command{
 	Use:   "add <key> <member> <lon> <lat>",
-	Short: "添加地理位置",
+	Short: "Add geographic location",
 	Args:  cobra.ExactArgs(4),
 	Run: func(cmd *cobra.Command, args []string) {
 		key := args[0]
@@ -257,17 +258,17 @@ var geoAddCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 添加失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrGeoAddFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
-		fmt.Printf("✅ OK (耗时: %v)\n", elapsed)
+		fmt.Printf("%s %s\n", i18n.T(i18n.MsgOK), i18n.T(i18n.MsgTime, elapsed))
 	},
 }
 
 var geoDistCmd = &cobra.Command{
 	Use:   "dist <key> <member1> <member2> [unit]",
-	Short: "计算两点距离",
+	Short: "Calculate distance",
 	Args:  cobra.RangeArgs(3, 4),
 	Run: func(cmd *cobra.Command, args []string) {
 		key := args[0]
@@ -283,17 +284,17 @@ var geoDistCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 计算失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrGeoDistFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
-		fmt.Printf("距离: %.2f %s (耗时: %v)\n", dist, unit, elapsed)
+		fmt.Printf("%s %s\n", i18n.T(i18n.MsgDistance, dist, unit), i18n.T(i18n.MsgTime, elapsed))
 	},
 }
 
 var geoRadiusCmd = &cobra.Command{
 	Use:   "radius <key> <lon> <lat> <radius> [unit]",
-	Short: "查询范围内的位置",
+	Short: i18n.T(i18n.CmdGeoRadius),
 	Args:  cobra.RangeArgs(4, 5),
 	Run: func(cmd *cobra.Command, args []string) {
 		key := args[0]
@@ -311,25 +312,25 @@ var geoRadiusCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 查询失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrGeoRadiusFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
 		if len(results) == 0 {
-			fmt.Printf("(空) (耗时: %v)\n", elapsed)
+			fmt.Printf("%s %s\n", i18n.T(i18n.MsgEmpty), i18n.T(i18n.MsgTime, elapsed))
 			return
 		}
 
 		for i, result := range results {
-			fmt.Printf("%d) %s (距离: %.2f %s)\n", i+1, result.Name, result.Distance, unit)
+			fmt.Printf("%d) %s (%s)\n", i+1, result.Name, i18n.T(i18n.MsgDistance, result.Distance, unit))
 		}
-		fmt.Printf("(耗时: %v)\n", elapsed)
+		fmt.Printf("%s\n", i18n.T(i18n.MsgTime, elapsed))
 	},
 }
 
 var geoPosCmd = &cobra.Command{
 	Use:   "pos <key> <member...>",
-	Short: "获取位置坐标",
+	Short: i18n.T(i18n.CmdGeoPos),
 	Args:  cobra.MinimumNArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		key := args[0]
@@ -340,7 +341,7 @@ var geoPosCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 获取失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrGeoPosFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
@@ -348,10 +349,10 @@ var geoPosCmd = &cobra.Command{
 			if pos.Name != "" {
 				fmt.Printf("%s: (%.6f, %.6f)\n", pos.Name, pos.Longitude, pos.Latitude)
 			} else {
-				fmt.Printf("%s: (nil)\n", members[i])
+				fmt.Printf("%s: %s\n", members[i], i18n.T(i18n.MsgNotFound))
 			}
 		}
-		fmt.Printf("(耗时: %v)\n", elapsed)
+		fmt.Printf("%s\n", i18n.T(i18n.MsgTime, elapsed))
 	},
 }
 
@@ -365,7 +366,7 @@ func init() {
 // Cluster command
 var clusterCmd = &cobra.Command{
 	Use:   "cluster",
-	Short: "集群信息",
+	Short: i18n.T(i18n.CmdCluster),
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
 		start := time.Now()
@@ -374,27 +375,27 @@ var clusterCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 获取集群信息失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrClusterFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
-		fmt.Println("=== 集群信息 ===")
+		fmt.Println(i18n.T(i18n.ClusterInfo))
 		for key, value := range info {
 			fmt.Printf("%s: %v\n", key, value)
 		}
 
 		leader, err := burinClient.GetLeader(ctx)
 		if err == nil {
-			fmt.Printf("\nLeader: %s\n", leader)
+			fmt.Printf("\n%s\n", i18n.T(i18n.ClusterLeader, leader))
 		}
-		fmt.Printf("(耗时: %v)\n", elapsed)
+		fmt.Printf("%s\n", i18n.T(i18n.MsgTime, elapsed))
 	},
 }
 
 // Health command
 var healthCmd = &cobra.Command{
 	Use:   "health",
-	Short: "健康检查",
+	Short: i18n.T(i18n.CmdHealth),
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx := context.Background()
 		start := time.Now()
@@ -403,32 +404,32 @@ var healthCmd = &cobra.Command{
 		elapsed := time.Since(start)
 
 		if err != nil {
-			fmt.Printf("❌ 健康检查失败: %v (耗时: %v)\n", err, elapsed)
+			fmt.Printf(i18n.T(i18n.ErrHealthFailed, err, elapsed) + "\n")
 			os.Exit(1)
 		}
 
-		fmt.Println("=== 健康状态 ===")
+		fmt.Println("=== " + i18n.T(i18n.CmdHealth) + " ===")
 
 		if status, ok := info["status"]; ok {
-			fmt.Printf("状态: %v\n", status)
+			fmt.Println(i18n.T(i18n.HealthStatus, status))
 		}
 		if nodeID, ok := info["node_id"]; ok {
-			fmt.Printf("节点ID: %v\n", nodeID)
+			fmt.Println(i18n.T(i18n.HealthNodeID, nodeID))
 		}
 		if isLeader, ok := info["is_leader"]; ok {
-			fmt.Printf("是否Leader: %v\n", isLeader)
+			fmt.Println(i18n.T(i18n.HealthIsLeader, isLeader))
 		}
 		if uptime, ok := info["uptime"]; ok {
-			fmt.Printf("运行时间: %v\n", uptime)
+			fmt.Println(i18n.T(i18n.HealthUptime, uptime))
 		}
 
 		if components, ok := info["components"].(map[string]interface{}); ok {
-			fmt.Println("\n组件状态:")
+			fmt.Println("\n" + i18n.T(i18n.HealthComponents))
 			for name, status := range components {
 				fmt.Printf("  %s: %v\n", name, status)
 			}
 		}
 
-		fmt.Printf("\n✅ 健康 (耗时: %v)\n", elapsed)
+		fmt.Printf("\n✅ %s %s\n", i18n.T(i18n.CmdHealth), i18n.T(i18n.MsgTime, elapsed))
 	},
 }
