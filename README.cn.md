@@ -160,7 +160,7 @@ import (
     "fmt"
     "time"
     
-    "burin/client"
+    "github.com/qorm/burin/client"
 )
 
 func main() {
