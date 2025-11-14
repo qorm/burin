@@ -1,0 +1,41 @@
+cache:
+  data_dir: /app/data/cache
+  max_cache_size: 1073741824
+  shard_count: 16
+  shard_size: 67108864
+  sync_writes: false
+
+# Consensus 配置 - 专门处理集群操作  
+# 包括节点管理、数据同步、Raft协议等
+consensus:
+  address: 0.0.0.0:8310 # Raft协议端口（监听所有接口）
+  data_dir: /app/data/consensus
+  id: "node-02"
+  log_level: INFO
+  bootstrap: false
+  join_addr: burin-node1:8099 # 加入 node1（使用 Docker 网络 DNS）
+  # Raft 超时配置
+  heartbeat_timeout: 1000ms
+  election_timeout: 1000ms
+  commit_timeout: 50ms
+  max_append_entries: 64
+  snapshot_interval: 120s
+  snapshot_threshold: 8192
+
+log:
+  format: json
+  level: info
+  output: stdout
+
+# Burin 配置 - 仅为客户端提供服务
+# 处理客户端的CRUD操作、查询等
+burin:
+  address: 0.0.0.0:8090 # 客户端服务端口（监听所有接口）
+  max_conns: 10000
+  read_timeout: 30s
+  write_timeout: 30s
+  forward_leader: true # Follower 节点转发写操作
+
+transaction:
+  max_concurrent: 1000
+  timeout: 30s

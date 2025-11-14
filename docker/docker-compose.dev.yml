@@ -1,0 +1,33 @@
+version: '3.8'
+
+# 单节点 Burin 开发/测试环境
+services:
+  burin:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: burin-dev
+    hostname: burin-dev
+    ports:
+      - "8099:8099"   # 客户端服务端口
+      - "8300:8300"   # Raft 端口
+    volumes:
+      - ./config/single-node.yaml:/app/config/burin.yaml:ro
+      - burin-dev-data:/app/data
+      - burin-dev-logs:/app/logs
+    environment:
+      - NODE_ID=node-dev
+      - LOG_LEVEL=debug
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8099"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  burin-dev-data:
+    driver: local
+  burin-dev-logs:
+    driver: local

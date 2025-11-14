@@ -1,0 +1,42 @@
+# .dockerignore - 排除不需要的文件
+
+# Git
+.git/
+.gitignore
+
+# 构建产物
+build/
+*.exe
+
+# 数据和日志
+data/
+logs/
+*.log
+*.pid
+
+# IDE 配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 测试
+test_suite/
+*_test.go
+*.test
+
+# Docker 相关
+docker/
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# 文档
+*.md
+docs/
+
+# 其他
+.DS_Store
+tmp/
+temp/

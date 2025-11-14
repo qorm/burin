@@ -1,0 +1,37 @@
+cache:
+  data_dir: /app/data/cache
+  max_cache_size: 1073741824
+  shard_count: 16
+  shard_size: 67108864
+  sync_writes: false
+
+# Consensus 配置 - 单节点模式
+consensus:
+  address: 0.0.0.0:8300
+  data_dir: /app/data/consensus
+  id: "node-dev"
+  log_level: DEBUG
+  bootstrap: true # 单节点 Bootstrap
+  heartbeat_timeout: 1000ms
+  election_timeout: 1000ms
+  commit_timeout: 50ms
+  max_append_entries: 64
+  snapshot_interval: 120s
+  snapshot_threshold: 8192
+
+log:
+  format: text
+  level: debug
+  output: stdout
+
+# Burin 配置
+burin:
+  address: 0.0.0.0:8099
+  max_conns: 10000
+  read_timeout: 30s
+  write_timeout: 30s
+  forward_leader: false
+
+transaction:
+  max_concurrent: 1000
+  timeout: 30s

@@ -1,0 +1,115 @@
+version: '3.8'
+
+services:
+  # Burin 节点 1 (Bootstrap Leader)
+  burin-node1:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: burin-node1
+    hostname: burin-node1
+    networks:
+      burin-cluster:
+        ipv4_address: 172.20.0.11
+    ports:
+      - "8099:8099"   # 客户端服务端口
+      - "8300:8300"   # Raft 端口
+    volumes:
+      - ./config/node1.yaml:/app/config/burin.yaml:ro
+      - burin-node1-data:/app/data
+      - burin-node1-logs:/app/logs
+    environment:
+      - NODE_ID=node-01
+      - LOG_LEVEL=info
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8099"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # Burin 节点 2 (Follower)
+  burin-node2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: burin-node2
+    hostname: burin-node2
+    networks:
+      burin-cluster:
+        ipv4_address: 172.20.0.12
+    ports:
+      - "8090:8090"   # 客户端服务端口
+      - "8310:8310"   # Raft 端口
+    volumes:
+      - ./config/node2.yaml:/app/config/burin.yaml:ro
+      - burin-node2-data:/app/data
+      - burin-node2-logs:/app/logs
+    environment:
+      - NODE_ID=node-02
+      - LOG_LEVEL=info
+    depends_on:
+      burin-node1:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8090"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # Burin 节点 3 (Follower)
+  burin-node3:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: burin-node3
+    hostname: burin-node3
+    networks:
+      burin-cluster:
+        ipv4_address: 172.20.0.13
+    ports:
+      - "8199:8199"   # 客户端服务端口
+      - "8320:8320"   # Raft 端口
+    volumes:
+      - ./config/node3.yaml:/app/config/burin.yaml:ro
+      - burin-node3-data:/app/data
+      - burin-node3-logs:/app/logs
+    environment:
+      - NODE_ID=node-03
+      - LOG_LEVEL=info
+    depends_on:
+      burin-node1:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "8199"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+# 网络配置
+networks:
+  burin-cluster:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# 数据卷
+volumes:
+  burin-node1-data:
+    driver: local
+  burin-node1-logs:
+    driver: local
+  burin-node2-data:
+    driver: local
+  burin-node2-logs:
+    driver: local
+  burin-node3-data:
+    driver: local
+  burin-node3-logs:
+    driver: local
