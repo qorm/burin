@@ -13,9 +13,9 @@ import (
 func main() {
 	// 创建客户端配置
 	config := client.NewDefaultConfig()
-	config.Connection.Endpoint = "localhost:8520"
-	config.Auth.Username = "admin"
-	config.Auth.Password = "admin123"
+	config.Connection.Endpoint = "localhost:8099"
+	config.Auth.Username = "burin"
+	config.Auth.Password = "burin@secret"
 
 	// 创建客户端连接池
 	// maxSize: 最大连接数

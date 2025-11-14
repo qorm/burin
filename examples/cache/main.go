@@ -18,8 +18,8 @@ func main() {
 	config.Connection.Endpoint = "127.0.0.1:8099"
 
 	// 配置认证信息（设置用户名密码后会自动登录）
-	config.Auth.Username = "admin"
-	config.Auth.Password = "burin2025"
+	config.Auth.Username = "burin"
+	config.Auth.Password = "burin@secret"
 
 	// 创建客户端
 	burinClient, err := client.NewClient(config)

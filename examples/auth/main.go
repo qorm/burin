@@ -32,8 +32,8 @@ func main() {
 	// 示例1：用户登录
 	fmt.Println("1. 用户登录示例")
 	loginReq := auth.LoginRequest{
-		Username: "admin",
-		Password: "burin2025",
+		Username: "burin",
+		Password: "burin@secret",
 	}
 	loginData, _ := json.Marshal(loginReq)
 	fmt.Printf("   请求: %s\n", string(loginData))
@@ -83,13 +83,13 @@ func main() {
 	// 协议头构造示例
 	fmt.Println("5. 协议头构造示例")
 	fmt.Println("   认证命令使用单独的命令类型: CommandTypeAuth (4)")
-	
+
 	loginHead := cProtocol.CreateAuthCommandHead(cProtocol.AuthCommandLogin)
-	fmt.Printf("   登录命令头: CommandType=%d, Command=%d\n", 
+	fmt.Printf("   登录命令头: CommandType=%d, Command=%d\n",
 		loginHead.GetCommandType(), loginHead.GetCommand())
-	
+
 	createUserHead := cProtocol.CreateAuthCommandHead(cProtocol.AuthCommandCreateUser)
-	fmt.Printf("   创建用户命令头: CommandType=%d, Command=%d\n", 
+	fmt.Printf("   创建用户命令头: CommandType=%d, Command=%d\n",
 		createUserHead.GetCommandType(), createUserHead.GetCommand())
 	fmt.Println()
 
@@ -118,7 +118,7 @@ func main() {
 	fmt.Println()
 
 	fmt.Println("=== 示例结束 ===")
-	
+
 	// 实际使用示例（需要运行Burin服务器）
 	demonstrateActualUsage()
 }

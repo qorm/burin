@@ -18,6 +18,8 @@ func main() {
 	// 创建客户端配置
 	config := client.NewDefaultConfig()
 	config.Connection.Endpoint = "127.0.0.1:8099"
+	config.Auth.Username = "burin"
+	config.Auth.Password = "burin@secret"
 
 	// 创建客户端
 	burinClient, err := client.NewClient(config)
