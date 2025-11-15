@@ -88,7 +88,7 @@ func (e *Engine) handleTransactionBegin(ctx context.Context, req *TransactionReq
 	}
 
 	// 开始事务
-	txn, err := e.transactionMgr.BeginTransaction(ctx, txnType)
+	txn, err := e.transactionMgr.Begin(ctx, txnType)
 	if err != nil {
 		resp := TransactionResponse{
 			Status: "error",
@@ -190,7 +190,7 @@ func (e *Engine) handleTransactionCommit(ctx context.Context, req *TransactionRe
 		e.logger.Infof("Successfully added %d operations to transaction %s", len(req.Commands), req.TransactionID)
 	}
 
-	err := e.transactionMgr.CommitTransaction(ctx, req.TransactionID)
+	err := e.transactionMgr.Commit(ctx, req.TransactionID)
 	if err != nil {
 		resp := TransactionResponse{
 			TransactionID: req.TransactionID,

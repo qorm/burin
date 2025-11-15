@@ -41,7 +41,7 @@ func (c *CoordinatorImpl) StartTransaction(ctx context.Context, txnType Transact
 	defer c.mu.Unlock()
 
 	// 创建事务
-	txn, err := c.tm.BeginTransaction(ctx, txnType)
+	txn, err := c.tm.Begin(ctx, txnType)
 	if err != nil {
 		return nil, fmt.Errorf("failed to begin transaction: %w", err)
 	}
@@ -127,8 +127,8 @@ func (c *CoordinatorImpl) PrepareTransaction(ctx context.Context, txnID string) 
 	}
 }
 
-// CommitTransaction 执行 2PC 提交阶段
-func (c *CoordinatorImpl) CommitTransaction(ctx context.Context, txnID string) error {
+// Commit 执行 2PC 提交阶段
+func (c *CoordinatorImpl) Commit(ctx context.Context, txnID string) error {
 	start := time.Now()
 	defer func() {
 		c.tm.metrics.CommitLatency.Observe(time.Since(start).Seconds())

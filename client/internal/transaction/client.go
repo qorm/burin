@@ -63,8 +63,8 @@ func NewClient(protocolClient *cProtocol.Client, config *Config) *Client {
 	}
 }
 
-// BeginTransaction 开始一个新事务
-func (c *Client) BeginTransaction(opts ...interfaces.TransactionOption) (interfaces.Transaction, error) {
+// Begin 开始一个新事务
+func (c *Client) Begin(opts ...interfaces.TransactionOption) (interfaces.Transaction, error) {
 	// 应用选项
 	options := &interfaces.TransactionOptions{
 		Timeout:        c.config.DefaultTimeout,

@@ -42,7 +42,7 @@ func main() {
 	fmt.Println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
 	// 开始事务
-	tx, err := burinClient.BeginTransaction(
+	tx, err := burinClient.Begin(
 		interfaces.WithIsolationLevel(interfaces.RepeatableRead),
 		interfaces.WithTxTimeout(30*time.Second),
 	)
@@ -89,7 +89,7 @@ func main() {
 	fmt.Println("示例2: 回滚的事务")
 	fmt.Println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
-	tx2, err := burinClient.BeginTransaction(
+	tx2, err := burinClient.Begin(
 		interfaces.WithIsolationLevel(interfaces.RepeatableRead),
 	)
 	if err != nil {
@@ -148,7 +148,7 @@ func main() {
 	fmt.Println("示例4: 转账事务 (Alice -> Bob: 200)")
 	fmt.Println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
-	tx3, err := burinClient.BeginTransaction(
+	tx3, err := burinClient.Begin(
 		interfaces.WithIsolationLevel(interfaces.Serializable),
 	)
 	if err != nil {

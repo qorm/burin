@@ -1544,7 +1544,7 @@ func handleTxBegin(c *client.BurinClient, database string) {
 		return
 	}
 
-	tx, err := c.BeginTransaction(interfaces.WithTxDatabase(database))
+	tx, err := c.Begin(interfaces.WithTxDatabase(database))
 	if err != nil {
 		fmt.Println(i18n.T(i18n.ErrPrefix, err))
 		return

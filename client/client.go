@@ -526,9 +526,9 @@ func (c *BurinClient) GeoSearch(key string, searchParams *interfaces.GeoSearchPa
 	return c.geoClient.GeoSearch(key, searchParams, opts...)
 }
 
-// BeginTransaction 开始一个新的ACID事务
-func (c *BurinClient) BeginTransaction(opts ...interfaces.TransactionOption) (interfaces.Transaction, error) {
-	return c.transactionClient.BeginTransaction(opts...)
+// Begin 开始一个新的ACID事务
+func (c *BurinClient) Begin(opts ...interfaces.TransactionOption) (interfaces.Transaction, error) {
+	return c.transactionClient.Begin(opts...)
 }
 
 // ====== 认证和用户管理操作方法 ======

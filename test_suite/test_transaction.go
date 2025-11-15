@@ -20,7 +20,7 @@ func test12_BasicTransactions() {
 	testKey := "test:tx:basic:" + cid.Generate()
 	testValue := []byte("transaction-value")
 
-	tx, err := burinClient.BeginTransaction()
+	tx, err := burinClient.Begin()
 	if err != nil {
 		recordTest("基本事务-开始", false, fmt.Sprintf("开始事务失败: %v", err), time.Since(startTime))
 		return
@@ -86,7 +86,7 @@ func test13_TransactionRollback() {
 	testKey := "test:tx:rollback:" + cid.Generate()
 	testValue := []byte("will-be-rolled-back")
 
-	tx, err := burinClient.BeginTransaction()
+	tx, err := burinClient.Begin()
 	if err != nil {
 		recordTest("事务回滚-开始", false, fmt.Sprintf("开始事务失败: %v", err), time.Since(startTime))
 		return
@@ -136,7 +136,7 @@ func test14_TransactionIsolation() {
 	printSuccess("初始数据写入成功")
 
 	printSubTest("14.2 可重复读隔离级别测试")
-	tx1, err := burinClient.BeginTransaction(
+	tx1, err := burinClient.Begin(
 		interfaces.WithIsolationLevel(interfaces.RepeatableRead),
 	)
 	if err != nil {
@@ -155,7 +155,7 @@ func test14_TransactionIsolation() {
 	printSuccess("事务1第一次读取成功")
 
 	printSubTest("14.3 在另一个事务中修改数据")
-	tx2, err := burinClient.BeginTransaction()
+	tx2, err := burinClient.Begin()
 	if err != nil {
 		tx1.Rollback()
 		recordTest("事务隔离-开始事务2", false, fmt.Sprintf("开始事务2失败: %v", err), time.Since(startTime))
@@ -244,7 +244,7 @@ func test15_ConcurrentTransactions() {
 			value := []byte(fmt.Sprintf("value-%d", id))
 
 			// 开始事务
-			tx, err := c.BeginTransaction()
+			tx, err := c.Begin()
 			if err != nil {
 				errorChan <- fmt.Errorf("goroutine %d: 开始事务失败: %v", id, err)
 				return
@@ -348,7 +348,7 @@ func test16_TransactionTimeout() {
 	testValue := []byte("timeout-test")
 
 	// 创建2秒超时的事务
-	tx, err := burinClient.BeginTransaction(
+	tx, err := burinClient.Begin(
 		interfaces.WithTxTimeout(2 * time.Second),
 	)
 	if err != nil {

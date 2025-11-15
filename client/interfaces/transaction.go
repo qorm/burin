@@ -6,8 +6,8 @@ import (
 
 // TransactionInterface 事务接口
 type TransactionInterface interface {
-	// BeginTransaction 开始一个新事务
-	BeginTransaction(opts ...TransactionOption) (Transaction, error)
+	// Begin 开始一个新事务
+	Begin(opts ...TransactionOption) (Transaction, error)
 }
 
 // Transaction 表示一个活跃的事务

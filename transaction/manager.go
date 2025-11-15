@@ -191,7 +191,7 @@ type MVCCSnapshot struct {
 type Coordinator interface {
 	StartTransaction(ctx context.Context, txnType TransactionType, participants []string) (*Transaction, error)
 	PrepareTransaction(ctx context.Context, txnID string) error
-	CommitTransaction(ctx context.Context, txnID string) error
+	Commit(ctx context.Context, txnID string) error
 	AbortTransaction(ctx context.Context, txnID string) error
 }
 
@@ -290,8 +290,8 @@ func NewTransactionManager(config *TransactionConfig, cacheEngine CacheEngine, c
 	return tm, nil
 }
 
-// BeginTransaction 开始事务
-func (tm *TransactionManager) BeginTransaction(ctx context.Context, txnType TransactionType) (*Transaction, error) {
+// Begin 开始事务
+func (tm *TransactionManager) Begin(ctx context.Context, txnType TransactionType) (*Transaction, error) {
 	tm.metrics.TransactionsStarted.Inc()
 
 	txnID := "txn_" + tm.config.NodeID + "_" + cid.Generate()
@@ -415,8 +415,8 @@ func (tm *TransactionManager) GetTransactionValueWithDatabase(txnID string, data
 	return nil, false, nil
 }
 
-// CommitTransaction 提交事务
-func (tm *TransactionManager) CommitTransaction(ctx context.Context, txnID string) error {
+// Commit 提交事务
+func (tm *TransactionManager) Commit(ctx context.Context, txnID string) error {
 	start := time.Now()
 	defer func() {
 		tm.metrics.TransactionDuration.Observe(time.Since(start).Seconds())
@@ -463,7 +463,7 @@ func (tm *TransactionManager) CommitTransaction(ctx context.Context, txnID strin
 	case ReadWriteTransaction:
 		return tm.commitLocalTransaction(ctx, txn)
 	case DistributedTransaction:
-		return tm.coordinator.CommitTransaction(ctx, txnID)
+		return tm.coordinator.Commit(ctx, txnID)
 	default:
 		return fmt.Errorf("unknown transaction type: %d", txn.Type)
 	}

@@ -220,7 +220,7 @@ func main() {
 
 ```go
 // Begin transaction
-txn, err := burinClient.BeginTransaction()
+txn, err := burinClient.Begin()
 if err != nil {
     panic(err)
 }
@@ -230,10 +230,10 @@ txn.Set("account:1", []byte("1000"))
 txn.Set("account:2", []byte("2000"))
 
 // Commit transaction
-err = burinClient.CommitTransaction(txn.ID)
+err = burinClient.Commit(txn.ID)
 if err != nil {
     // Rollback transaction
-    burinClient.RollbackTransaction(txn.ID)
+    burinClient.Rollback(txn.ID)
     panic(err)
 }
 ```
